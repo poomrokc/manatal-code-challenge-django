@@ -9,6 +9,9 @@ verify_ssl = true
 django = "==3.0"
 psycopg2 = "*"
 django-dotenv = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
 
 [requires]
 python_version = "3.7"
