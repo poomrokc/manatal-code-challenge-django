@@ -18,7 +18,7 @@ class StudentSerializer(serializers.ModelSerializer):
         model = Student
         fields = ('id', 'first_name', 'last_name', 'school')
 
-    def schoolFullError(school):
+    def schoolFullError(self, school):
         raise serializers.ValidationError("School " + school.name + " already has maximum number of students")
 
     def validate(self, data):

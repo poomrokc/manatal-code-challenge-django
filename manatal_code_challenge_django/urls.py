@@ -29,5 +29,5 @@ router.register(r'students', StudentViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'', include(router.urls)),
-    path(r'api/', include('rest_framework.urls', namespace='rest_framework'))
+    path(r'', include('rest_framework.urls', namespace='rest_framework'))
 ]
