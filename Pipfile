@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django = "==3.0"
+django = "*"
 psycopg2 = "*"
 django-dotenv = "*"
 djangorestframework = "*"
