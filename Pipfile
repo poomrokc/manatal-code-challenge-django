@@ -15,6 +15,8 @@ django-filter = "*"
 drf-nested-routers = "*"
 djangorestframework-word-filter = "*"
 rest-framework-word-filterpages = "*"
+gunicorn = "*"
+django-heroku = "*"
 
 [requires]
 python_version = "3.7"

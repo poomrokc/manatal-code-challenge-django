@@ -1,0 +1,23 @@
+################################################################################
+# This requirements file has been automatically generated from `Pipfile` with
+# `pipenv-to-requirements`
+#
+#
+# This has been done to maintain backward compatibility with tools and services
+# that do not support `Pipfile` yet.
+#
+# Do NOT edit it directly, use `pipenv install [-d]` to modify `Pipfile` and
+# `Pipfile.lock` and then regenerate `requirements*.txt`.
+################################################################################
+
+asgiref==3.2.3
+django-dotenv==1.4.2
+django-filter==2.2.0
+django==3.0.3
+djangorestframework-word-filter==0.1.1
+djangorestframework==3.11.0
+drf-nested-routers==0.91
+markdown==3.2
+psycopg2==2.8.4
+pytz==2019.3
+sqlparse==0.3.0
