@@ -1,1 +1,1 @@
-web: gunicorn matanal_code_challenge_django.wsgi --log-file -
+web: gunicorn manatal_code_challenge_django.wsgi --log-file -
