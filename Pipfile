@@ -15,6 +15,7 @@ django-filter = "*"
 drf-nested-routers = "*"
 gunicorn = "*"
 django-heroku = "*"
+dj-database-url = "*"
 
 [requires]
 python_version = "3.7"
