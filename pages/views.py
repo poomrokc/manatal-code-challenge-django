@@ -1,11 +1,10 @@
 from django.shortcuts import render
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import routers, serializers, viewsets, status
 from rest_framework.decorators import action
 from rest_framework import filters
 from rest_framework.response import Response
-from manatal_code_challenge_django.serializers import UserSerializer, SchoolSerializer, StudentSerializer
-from django.contrib.auth.models import User
-from django_filters.rest_framework import DjangoFilterBackend
+from pages.serializers import SchoolSerializer, StudentSerializer
 from pages.models import School, Student
 
 # Create your views here.
