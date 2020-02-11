@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from rest_framework import routers, serializers, viewsets, status
 from rest_framework.decorators import action
+from rest_framework import filters
 from rest_framework.response import Response
 from manatal_code_challenge_django.serializers import UserSerializer, SchoolSerializer, StudentSerializer
 from django.contrib.auth.models import User
+from django_filters.rest_framework import DjangoFilterBackend
 from pages.models import School, Student
 
 # Create your views here.
@@ -17,6 +19,11 @@ class DestroyWithPayloadMixing(object):
 class SchoolViewSet(DestroyWithPayloadMixing, viewsets.ModelViewSet):
     queryset = School.objects.all()
     serializer_class = SchoolSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['name', 'max_student']
+    search_fields = ['name', 'location']
+    ordering_fields = ['max_student']
+    ordering = ['max_student']
 
 # ViewSets define the view behavior.
 class StudentViewSet(DestroyWithPayloadMixing, viewsets.ModelViewSet):
@@ -26,6 +33,12 @@ class StudentViewSet(DestroyWithPayloadMixing, viewsets.ModelViewSet):
             return Student.objects.filter(school_id=self.kwargs['school_pk'])
         else:
             return Student.objects.all()
+
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['first_name', 'last_name','age','nationality']
+    search_fields = ['first_name', 'last_name', 'nationality', 'school__name']
+    ordering_fields = ['age', 'nationality']
+    ordering = ['age']
 
     def create(self, request, *args, **kwargs):
         """If is called inside school, we use data from the url(ignore passed data) else just use from the passed data"""

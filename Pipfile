@@ -13,6 +13,8 @@ djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
 drf-nested-routers = "*"
+djangorestframework-word-filter = "*"
+rest-framework-word-filterpages = "*"
 
 [requires]
 python_version = "3.7"
