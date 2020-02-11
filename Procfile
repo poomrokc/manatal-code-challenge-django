@@ -1,1 +1,1 @@
-'web: gunicorn matanal-code-challenge-django.wsgi --log-file -' 
+'web: gunicorn matanal_code_challenge_django.wsgi --log-file -' 

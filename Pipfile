@@ -13,8 +13,6 @@ djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
 drf-nested-routers = "*"
-djangorestframework-word-filter = "*"
-rest-framework-word-filterpages = "*"
 gunicorn = "*"
 django-heroku = "*"
 
