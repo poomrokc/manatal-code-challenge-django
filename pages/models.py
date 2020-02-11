@@ -6,10 +6,13 @@ def user_id():
 
 class School(models.Model):
     name = models.CharField(max_length=20)
+    location = models.CharField(max_length=100)
     max_student = models.IntegerField()
 
 class Student(models.Model):
+    id = models.CharField(max_length=20, default=user_id, primary_key=True, editable=False)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
-    id = models.CharField(max_length=20, default=user_id, primary_key=True, editable=False)
+    age = models.IntegerField()
+    nationality = models.CharField(max_length=30)
     school = models.ForeignKey(School, on_delete=models.CASCADE)

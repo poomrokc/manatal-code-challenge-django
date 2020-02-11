@@ -11,12 +11,12 @@ class UserSerializer(serializers.ModelSerializer):
 class SchoolSerializer(serializers.ModelSerializer):
     class Meta:
         model = School
-        fields = ('id', 'name', 'max_student')
+        fields = ('id', 'name', 'max_student', 'location')
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ('id', 'first_name', 'last_name', 'school')
+        fields = ('id', 'first_name', 'last_name', 'school', 'age', 'nationality')
 
     def schoolFullError(self, school):
         raise serializers.ValidationError("School " + school.name + " already has maximum number of students")
