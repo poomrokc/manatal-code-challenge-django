@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
+from django.http import HttpResponse
 from rest_framework import routers, serializers, viewsets, status
 from rest_framework.decorators import action
 from rest_framework import filters
@@ -48,3 +49,6 @@ class StudentViewSet(DestroyWithPayloadMixing, viewsets.ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+def homePageView(request):
+    return HttpResponse('Documentation for this application can be found <a target="_blank" rel="noopenner noreferrer" href="https://github.com/poomrokc/manatal-code-challenge-django/">here</a>')

@@ -3,7 +3,7 @@ from django.urls import path, include
 from pages.models import School, Student
 from rest_framework_nested import routers
 
-from pages.views import SchoolViewSet, StudentViewSet
+from pages.views import SchoolViewSet, StudentViewSet, homePageView
 
 def optional_trailing_slash(urls):
    for url in urls[0]:
@@ -20,5 +20,6 @@ domains_router.register(r'students', StudentViewSet, basename='Student')
 
 urlpatterns = [
     path(r'', optional_trailing_slash(include(router.urls))),
-    path(r'', optional_trailing_slash(include(domains_router.urls)))
+    path(r'', optional_trailing_slash(include(domains_router.urls))),
+    path(r'', homePageView)
 ]
