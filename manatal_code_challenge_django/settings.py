@@ -135,5 +135,5 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 django_heroku.settings(locals())
 
-"""Comment below line to test on local"""
-del DATABASES['default']['OPTIONS']['sslmode']
+"""Uncomment below line to test on local"""
+#del DATABASES['default']['OPTIONS']['sslmode']
