@@ -144,3 +144,17 @@ Normal test cases covers most(if not all) operations, urls with and without trai
 - You cannot add student to a full school.
 - In a full school, student can be PUT/PATCH to the same old school, but students from other schools cannot be PUT/PATCH into the full school.
 - If use nested students url, creation ignores input school and school is not a required field anymore.
+
+## Time tracking
+
+Step1 : 2 hours
+
+Step2 : 1 hour
+
+Step3 : 1 hour
+
+Bonuses: 2 hours
+
+Refactoring: 1 hour
+
+Testing and finalize: 5 hours
