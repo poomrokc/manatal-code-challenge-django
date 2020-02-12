@@ -18,11 +18,12 @@ class SchoolTests(APITestCase):
         self.assertEqual(School.objects.get().max_student, 20)
         self.assertEqual(School.objects.get().location, 'Bangkok')
 
-    def test_create_School_string_max_student(self):
+    def test_create_School_data_type(self):
         """
-        Ensure we can create a new school object with string max_student.
+        Ensure we can create a new school object with datatype that can be convert to matching type.
         """
         url = '/schools/'
+        """String max_student"""
         data = {'name': 'Triamudomsuksa', 'max_student': '20', 'location': 'Bangkok'}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -30,6 +31,16 @@ class SchoolTests(APITestCase):
         self.assertEqual(School.objects.get().name, 'Triamudomsuksa')
         self.assertEqual(School.objects.get().max_student, 20)
         self.assertEqual(School.objects.get().location, 'Bangkok')
+
+        """Name, Location type number"""
+        data = {'name': 111, 'max_student': 20, 'location': 11}
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        """String max_student but non convertable"""
+        data = {'name': 'Triamudomsuksa', 'max_student': 'AAAA', 'location': 'Bangkok'}
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_create_School_missing_param(self):
         """
@@ -106,9 +117,10 @@ class SchoolTests(APITestCase):
             response = self.client.post(url, data, format='json')
             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
+
     def test_put_School(self):
         """
-        Ensure we can edit School by PUT REQUEST
+        Ensure we can edit School by PUT REQUEST, and not messing with not found id
         """
         url = '/schools/'
         data = {'name': 'Triamudomsuksa', 'max_student': 20, 'location': 'Bangkok'}
@@ -123,6 +135,12 @@ class SchoolTests(APITestCase):
         self.assertEqual(School.objects.get().name, 'Triamudomsuksa2')
         self.assertEqual(School.objects.get().max_student, 30)
         self.assertEqual(School.objects.get().location, 'Bangkok2')
+
+        """Not found id"""
+        url = '/schools/aaaa/'
+        data = {'name': 'Triamudomsuksa2', 'max_student': 30, 'location': 'Bangkok2'}
+        response = self.client.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_put_School_missing_param(self):
         """
@@ -177,9 +195,14 @@ class SchoolTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(School.objects.get().location, 'Bangkok2')
 
+        url = '/schools/aaaa/'
+        data = {'name': 'Triamudomsuksa2'}
+        response = self.client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
     def test_delete_School(self):
         """
-        Ensure we can delete school object.
+        Ensure we can delete school object and not messing not found id
         """
         ids=[]
         url = '/schools/'
@@ -197,9 +220,13 @@ class SchoolTests(APITestCase):
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             self.assertEqual(School.objects.count(), 2 - i)
 
+        url = '/schools/aaaa/'
+        response = self.client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
     def test_get_School(self):
         """
-        Ensure we can delete school object.
+        Ensure we can get school object and not messing not found id.
         """
         url = '/schools/'
         data = {'name': 'Triamudomsuksa', 'max_student': 20, 'location': 'Bangkok'}
@@ -213,6 +240,10 @@ class SchoolTests(APITestCase):
         self.assertEqual(response.data['name'], 'Triamudomsuksa')
         self.assertEqual(response.data['max_student'], 20)
         self.assertEqual(response.data['location'], 'Bangkok')
+
+        url = '/schools/aaaa/'
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_get_School_bulk(self):
         """
@@ -241,28 +272,28 @@ class SchoolTests(APITestCase):
         """ascending max_student"""
         data=[]
         response = self.client.get(url+'?ordering=max_student', format='json')
-        self.assertTrue(len(response.data['results'])<=20);
+        self.assertTrue(len(response.data['results'])<=20)
         data += response.data['results']
         while not (response.data['next'] is None):
-            self.assertTrue(len(response.data['results'])<=20);
+            self.assertTrue(len(response.data['results'])<=20)
             response = self.client.get(response.data['next'], format='json')
             data += response.data['results']
         self.assertEqual(len(data), 104)
         for i in range(1,len(data)):
-            self.assertTrue(data[i]['max_student']>=data[i-1]['max_student']);
+            self.assertTrue(data[i]['max_student']>=data[i-1]['max_student'])
 
         """desending max_student"""
         data=[]
         response = self.client.get(url+'?ordering=-max_student', format='json')
-        self.assertTrue(len(response.data['results'])<=20);
+        self.assertTrue(len(response.data['results'])<=20)
         data += response.data['results']
         while not (response.data['next'] is None):
-            self.assertTrue(len(response.data['results'])<=20);
+            self.assertTrue(len(response.data['results'])<=20)
             response = self.client.get(response.data['next'], format='json')
             data += response.data['results']
         self.assertEqual(len(data), 104)
         for i in range(1,len(data)):
-            self.assertTrue(data[i]['max_student']<=data[i-1]['max_student']);
+            self.assertTrue(data[i]['max_student']<=data[i-1]['max_student'])
 
     def test_get_School_filter(self):
         """
