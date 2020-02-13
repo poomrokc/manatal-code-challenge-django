@@ -16,7 +16,7 @@ Live example: https://django-challenge-poompatai.herokuapp.com
    - first_name (Text not exceeding 20 characters)
    - last_name (Text not exceeding 20 characters)
    - age (Integer in range 0,150)
-   - Nationality (Text not exceeding 100 characters)
+   - Nationality (Text not exceeding 30 characters)
    - School (Delete Cascade)
 
 ## Extra Features
