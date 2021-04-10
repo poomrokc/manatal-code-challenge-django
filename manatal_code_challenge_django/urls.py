@@ -19,7 +19,8 @@ domains_router = routers.NestedSimpleRouter(router, r'schools', lookup='school')
 domains_router.register(r'students', StudentViewSet, basename='Student')
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path(r'', optional_trailing_slash(include(router.urls))),
     path(r'', optional_trailing_slash(include(domains_router.urls))),
-    path(r'', homePageView)
+    path(r'', homePageView),
 ]
