@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from pages.models import School, Student
 from rest_framework_nested import routers
+from django.conf import settings
 
 from pages.views import SchoolViewSet, StudentViewSet, homePageView
 
