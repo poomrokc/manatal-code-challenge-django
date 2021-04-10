@@ -23,4 +23,4 @@ urlpatterns = [
     path(r'', optional_trailing_slash(include(router.urls))),
     path(r'', optional_trailing_slash(include(domains_router.urls))),
     path(r'', homePageView),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
