@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import django_heroku
 import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -76,8 +77,16 @@ WSGI_APPLICATION = 'manatal_code_challenge_django.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-DATABASES = {}
-DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": config("RDS_DB_NAME", default="test"),
+        "USER": config("RDS_USERNAME", default="postgres"),
+        "PASSWORD": config("RDS_PASSWORD", default="postgres"),
+        "HOST": config("RDS_HOSTNAME", default="localhost"),
+        "PORT": config("RDS_PORT", cast=int, default=5432),
+    }
+}
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -132,8 +141,6 @@ APPEND_SLASH = False
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
-
-django_heroku.settings(locals())
 
 """Uncomment below line to test on local"""
 #del DATABASES['default']['OPTIONS']['sslmode']
